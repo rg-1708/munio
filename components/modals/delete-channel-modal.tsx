@@ -3,6 +3,8 @@
 import axios from "axios";
 import { useState } from "react";
 
+import qs from "query-string";
+
 import {
   Dialog,
   DialogTitle,
@@ -16,23 +18,30 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-export const DeleteServerModal = () => {
+export const DeleteChannelModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const isModalOpen = isOpen && type === "delete server";
+
+  const isModalOpen = isOpen && type === "delete channel";
 
   const [isLoading, setIsLoading] = useState(false);
-  const { server } = data;
+  const { server, channel } = data;
 
   const onClick = async () => {
     try {
       setIsLoading(true);
 
-      await axios.delete(`/api/servers/${server?.id}`);
+      const url = qs.stringifyUrl({
+        url: `/api/channels/${channel?.id}`,
+        query: {
+          serverId: server?.id,
+        },
+      });
+      await axios.delete(url);
 
       onClose();
       router.refresh();
-      router.push("/");
+      router.push(`/servers/${server?.id}`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -48,11 +57,13 @@ export const DeleteServerModal = () => {
       >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold capitalize">
-            Delete server
+            Delete channel
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Are you sure, you want to do this ? <br />
-            <span className="font-bold text-rose-500">{server?.name}</span>{" "}
+            <span className="font-bold text-indigo-500">
+              #{channel?.name}
+            </span>{" "}
             <span className="underline">will be permanently deleted.</span>
           </DialogDescription>
         </DialogHeader>
