@@ -1,6 +1,8 @@
 import { Hash } from "lucide-react";
 import React from "react";
 
+import { ChatVideoButton } from "./chat-video-button";
+
 import { MobileToggle } from "@/components/mobile/mobile-toggle";
 import { UserAvatar } from "@/components/avatars/user-avatar";
 import { SocketIndicator } from "@/components/indicators/socket-indicator";
@@ -34,6 +36,7 @@ export const ChatHeader = ({
 
       <p className="font-semibold text-md text-black dark:text-white">{name}</p>
       <div className="ml-auto flex items-center">
+        {type === "conversation" && <ChatVideoButton />}
         <SocketIndicator />
       </div>
     </div>

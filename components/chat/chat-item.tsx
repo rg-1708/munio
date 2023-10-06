@@ -102,9 +102,9 @@ export const ChatItem = ({
       }
     };
 
-    window.addEventListener("keyDown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener("keyDown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   useEffect(() => {
@@ -215,8 +215,8 @@ export const ChatItem = ({
                       <FormControl>
                         <div className="relative w-full">
                           <Input
-                            disabled={isLoading}
                             {...field}
+                            disabled={isLoading}
                             placeholder="edited message"
                             className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75
                           border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0
@@ -231,7 +231,7 @@ export const ChatItem = ({
                   save
                 </Button>
               </form>
-              <span className="text-[10px] mt-1 text-zinc-40">
+              <span className="text-[10px] mt-1 text-zinc-40 text-indigo-400">
                 Press esc to cancel, enter to save
               </span>
             </Form>
