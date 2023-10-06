@@ -94,8 +94,8 @@ model Channel {
 }
 
 model Messsage {
-  id     String @id @default(uuid())
-  conent String @db.Text
+  id      String @id @default(uuid())
+  content String @db.Text
 
   fileUrl String? @db.Text
 
